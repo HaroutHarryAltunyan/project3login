@@ -1,0 +1,1 @@
+const messagesResolvers = require('./messages');
