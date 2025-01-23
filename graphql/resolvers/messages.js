@@ -1,26 +1,24 @@
-const Message = require('../../models/Message'); // Fixed typo in 'Messgae'
+const Message = require('../../models/Message');
 
 module.exports = {
     Mutation: {
-        async createMessage(_, { messageInput:  { text, username }  }) { // Corrected syntax for destructuring messageInput
-         // Destructure text and username from messageInput
-
+        async createMessage(_, { messageInput: { text, username } }) { 
             const newMessage = new Message({
                 text: text,
                 createdBy: username,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
             });
 
-            const res = await newMessage.save(); // Save the message to the database
+            const res = await newMessage.save();
             console.log(res);
 
             return {
                 id: res.id,
-                ...res._doc // Spread the _doc property to include all document fields
-            }
-        }
+                ...res._doc, 
+            };
+        },
     },
     Query: {
-        message: (_, { ID }) => Message.findById(ID) // Ensure proper casing and method call
-    }
+        message: (_, { ID }) => Message.findById(ID), 
+    },
 };
