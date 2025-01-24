@@ -32,10 +32,12 @@ module.exports = gql`
 
   type Query {
     message(id: ID!): Message
+    user(id: ID!): User
   }
 
   type Mutation {
     createMessage(messageInput: MessageInput): Message!
     registerUser(registerInput: RegisterInput): User
+    loginUser(loginInput: LoginInput): User ok, what is user.token
   }
 `;

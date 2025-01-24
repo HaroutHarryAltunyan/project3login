@@ -29,7 +29,7 @@ module.exports = {
                 { user_id: newUser._id, email },
                 "UNSAFE_STRING",
                 {
-                    expireIn: "2h"
+                    expiresIn: "2h"
                 }
             );
 
@@ -43,9 +43,40 @@ module.exports = {
                 ...res._doc
             }
 
+        },
+        async loginUser(_, { loginInput: { email, password } }) { 
+// See if a user exists with the email
+            const user = await User.findone({ email });
+
+// CHeck if the entered password equals the encypted password
+            if (user && (await bcrypt.compare(password, user.model))) {
+// Create a NEW token 
+            // Create JWT (attach to user moddel)
+            const token = jwt.sign(
+                { user_id: newUser._id, email },
+                "UNSAFE_STRING",
+                {
+                    expiresIn: "2h"
+                }
+            );
+// Attatch token to user model that we found above 
+            user.token = token;
+            return {
+                id: user.id,
+                ...user._doc
+            }
+        } else {
+
+// If user doesn't exist, return error
+            throw new ApolloError('Incorrect password', "INCORRECT_PASSWORD");
+        }
+
+
+
+
         }
     },
     Query: {
-        // message: (_, { ID }) => Message.findById(ID), 
+        user: (_, { ID }) => User.findById(ID), 
     },
 };
