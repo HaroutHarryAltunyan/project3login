@@ -42,16 +42,13 @@ module.exports = {
                 id: res.id,
                 ...res._doc
             }
-
         },
         async loginUser(_, { loginInput: { email, password } }) { 
 // See if a user exists with the email
             const user = await User.findone({ email });
-
-// CHeck if the entered password equals the encypted password
-            if (user && (await bcrypt.compare(password, user.model))) {
+// Check if the entered password equals the encypted password
+            if (user && (await bcrypt.compare(password, user.password))) {
 // Create a NEW token 
-            // Create JWT (attach to user moddel)
             const token = jwt.sign(
                 { user_id: newUser._id, email },
                 "UNSAFE_STRING",
@@ -61,19 +58,15 @@ module.exports = {
             );
 // Attatch token to user model that we found above 
             user.token = token;
+
             return {
                 id: user.id,
                 ...user._doc
             }
         } else {
-
 // If user doesn't exist, return error
             throw new ApolloError('Incorrect password', "INCORRECT_PASSWORD");
-        }
-
-
-
-
+            }
         }
     },
     Query: {
