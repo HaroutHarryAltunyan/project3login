@@ -16,7 +16,7 @@ module.exports = {
                 id: res.id,
                 ...res._doc, 
             };
-        },
+        }
     },
     Query: {
         message: (_, { ID }) => Message.findById(ID), 
