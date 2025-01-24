@@ -38,6 +38,6 @@ module.exports = gql`
   type Mutation {
     createMessage(messageInput: MessageInput): Message!
     registerUser(registerInput: RegisterInput): User
-    loginUser(loginInput: LoginInput): User ok, what is user.token
+    loginUser(loginInput: LoginInput): User
   }
 `;
