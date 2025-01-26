@@ -6,19 +6,19 @@ function Homepage() {
 
     return (
         <>
-        <h1>This is the homepage</h1>
-        {user ? (
-            <>
-                <p>Welcome, {user.name}!</p>
-                {/* <button onClick={logout}>Logout</button> */}
-            </>
-        ) : (
-            <>
-                <p>There is no user data.</p>
-            </>
-        )}
-    </>
-);
+            <h1>This is the homepage</h1>
+            {user ? 
+                <>
+                    <p>Welcome, {user.email}is logged in !</p>
+                    {/* <button onClick={logout}>Logout</button> */}
+                </>
+            : 
+                <>
+                    <p>There is no user data.</p>
+                </>
+            }
+        </>
+    )
 }
 
 export default Homepage;
