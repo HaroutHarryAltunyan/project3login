@@ -10,7 +10,7 @@ function Homepage() {
         {user ? (
             <>
                 <p>Welcome, {user.name}!</p>
-                <button onClick={logout}>Logout</button>
+                {/* <button onClick={logout}>Logout</button> */}
             </>
         ) : (
             <>
