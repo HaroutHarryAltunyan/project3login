@@ -6,7 +6,7 @@ const resolvers = require('./graphql/resolvers');
 
 // MongoDB connection string
 const MONGODB = 
-"mongodb+srv: //haroutyunhaltunyan93:RMEizsGcjSnfT7VF@cluster1.cw144.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+"mongodb+srv://haroutyunhaltunyan93:RMEizsGcjSnfT7VF@cluster1.cw144.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 // Create a new ApolloServer instance
 const server = new ApolloServer({
