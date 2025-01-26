@@ -81,7 +81,14 @@ function Register(props) {
                     </Alert>
                 );
             })}
-            <Button variant="contained" onClick={onSubmit}></Button>
+            <Button variant="contained" 
+            onClick={onSubmit}
+            disabled={loading} // Disable button during loading
+        >
+
+
+{loading ? "Register in..." : "Register"} {/* Button text for clarity */}
+            </Button>
         </Container>
     );
 }
