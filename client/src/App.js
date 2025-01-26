@@ -3,6 +3,7 @@ import './App.css';
 import { Routes, Route } from "react-router-dom";
 import Homepage from './pages/homepage';
 import Navbar from './components/navbar';
+import Register from './pages/register';
 
 
 function App() {

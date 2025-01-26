@@ -51,12 +51,12 @@ function AuthProvider(props) {
 
     function logout(){
         localStorage.removeItem("token");
-        dispatch({ type: 'LOGOUT'});
+        dispatch({ type: 'LOGOUT' });
     }
 
     return(
         <AuthContext.Provider
-            value={{user: state.user, login,logout,}}
+            value={{user: state.user, login, logout,}}
             {...props}
         />
     )

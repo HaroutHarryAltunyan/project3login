@@ -1,8 +1,8 @@
 import {useContext, useState} from "react"
-import { authContext } from "../context/authContext";
+import { AuthContext } from "../context/authContext";
 import { useForm } from "../utility/hooks";
 import { useMutation } from "@apollo/react-hooks";
-
+import { TextField, Button, Container, Stack, Alert } from "@mui/material";
 import {gql} from 'graphql-tag';
 import { useNavigate } from "react-router-dom";
 
@@ -21,26 +21,38 @@ const REGISTER_USER = gql`
 `
 
 function Register(props){
-    const context = useContext(authContext);
+    const context = useContext(AuthContext);
     let navigate = useNavigate();
     const [errors, setErrors] = useState([]);
 
-    const {onChangee, onSubmit, value} = useForm(registerUserCallback, {
-        user: '',
-        email:'',
-        password:'',
-        confirmPassword:'',
+    function registerUserCallback() {
+        console.log("Callback hit")
+    }
 
+    const { onChangee, onSubmit, values } = useForm(registerUserCallback, {
+        user: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
     });
 
-    const [registerUser, {loading}] = useMutation(REGISTER_USER,{
-        upadate(proxy,{data: {registerUser:userData}}) {
+    const [registerUser, {loading}] = useMutation(REGISTER_USER, {
+        update(proxy, {data: {registerUser: userData}}) {
             context.login(userData);
             navigate('/');
         },
-        onError({ graphQLErrors }) {
-            setErrors(graphQlErrors);
+        onError({ graphQLErrors }) { 
+            setErrors(graphQLErrors);
         },
-        variables: {registerInput: values }
-    })
+        variables: {registerInput: values } 
+    });
+
+    return (
+        <Container spacing={2} maxwidth="sm">
+            <h3>Register</h3>
+            <p>This is the register page,m register below to create an account</p>
+        </Container>
+    )
 }
+
+export default Register;
