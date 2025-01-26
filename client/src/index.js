@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import client from './context/apolloClient'; // Adjusted path for Apollo Client
+import client from './apolloClient'; // Adjusted path for Apollo Client
 import { ApolloProvider } from '@apollo/client'; // Correct import for ApolloProvider
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './authContext'; // Ensure the path is correct
+import { AuthProvider } from './context/authContext'; // Ensure the path is correct
 
 // React 18: Use ReactDOM.createRoot
 const root = ReactDOM.createRoot(document.getElementById('root'));

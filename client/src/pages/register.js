@@ -1,5 +1,5 @@
 import {useContext, useState} from "react"
-import { authContext } from "../authContext";
+import { authContext } from "../context/authContext";
 import { useForm } from "../utility/hooks";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -19,3 +19,28 @@ const REGISTER_USER = gql`
         }
     }
 `
+
+function Register(props){
+    const context = useContext(authContext);
+    let navigate = useNavigate();
+    const [errors, setErrors] = useState([]);
+
+    const {onChangee, onSubmit, value} = useForm(registerUserCallback, {
+        user: '',
+        email:'',
+        password:'',
+        confirmPassword:'',
+
+    });
+
+    const [registerUser, {loading}] = useMutation(REGISTER_USER,{
+        upadate(proxy,{data: {registerUser:userData}}) {
+            context.login(userData);
+            navigate('/');
+        },
+        onError({ graphQLErrors }) {
+            setErrors(graphQlErrors);
+        },
+        variables: {registerInput: values }
+    })
+}
