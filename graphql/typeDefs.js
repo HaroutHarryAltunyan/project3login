@@ -1,11 +1,30 @@
 const { gql } = require('apollo-server');
 
 module.exports = gql`
-  type Message {     
-    text: String!  
-    createdAt: String
-    createdBy: String
+  type User {
+    username: String,
+    email: String,
+    password: String,
+    token: String
   }
+
+  input RegisterInput {
+    username: String
+    email: String
+    password: String
+    confirmPassword: String
+  }
+
+  input LoginInput {
+    email: String
+    password: String
+  }
+
+  # type Message {     
+  #   text: String!  
+  #   createdAt: String
+  #   createdBy: String
+  # }
 
   type User {
     username: String
@@ -19,16 +38,16 @@ module.exports = gql`
     username: String
   }
 
-  input RegisterInput {
-    username: String
-    email: String
-    password: String
-  }
+  # input RegisterInput {
+  #   username: String
+  #   email: String
+  #   password: String
+  # }
 
-  input LoginInput {
-    email: String
-    password: String
-  }
+  # input LoginInput {
+  #   email: String
+  #   password: String
+  # }
 
   type Query {
     message(id: ID!): Message
