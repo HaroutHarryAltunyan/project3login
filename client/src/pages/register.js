@@ -27,7 +27,7 @@ function Register(props) {
     }
 
     const { onChange, onSubmit, values } = useForm(registerUserCallback, {
-        user: '', // Fixed typo: ensure consistency with mutation if this should be `username`
+        username: '', 
         email: '',
         password: '',
         confirmPassword: ''
@@ -45,10 +45,10 @@ function Register(props) {
     });
 
     return (
-        <Container maxWidth="sm"> {/* Fixed typo: maxwidth -> maxWidth */}
+        <Container spacing={2} maxWidth="sm"> 
             <h3>Register</h3>
             <p>This is the register page, register below to create an account</p>
-            <Stack spacing={2} paddingBottom={2}> {/* Fixed typo: soacing -> spacing */}
+            <Stack spacing={2} paddingBottom={2}> 
                 <TextField
                     label="Username"
                     name="username"
