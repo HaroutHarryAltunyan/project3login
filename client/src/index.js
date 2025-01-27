@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import client from './apolloClient'; // Adjusted path for Apollo Client
-import { ApolloProvider } from '@apollo/client'; // Correct import for ApolloProvider
+import client from './apolloClient'; 
+import { ApolloProvider } from '@apollo/react-hooks'; 
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/authContext'; // Ensure the path is correct
 

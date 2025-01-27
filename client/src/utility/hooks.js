@@ -1,9 +1,6 @@
 import { useState } from 'react';
 
 export const useForm = (callback, initialState = {}) => {
-    // Password
-    // Email
-    // {"password": "", "email": ""}
     const [values, setValues] = useState(initialState);
 
     const onChange = (event) => {
@@ -14,14 +11,14 @@ export const useForm = (callback, initialState = {}) => {
     const onSubmit = (event) => {
         event.preventDefault();
         callback(); // Executes the callback function passed to the hook
-    };
+    }
 
     return {
         onChange,
         onSubmit,
         values,
-    };
-};
+    }
+}
 
 
 
