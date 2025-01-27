@@ -5,27 +5,83 @@ const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 
 // MongoDB connection string
-const MONGODB = "mongodb+srv://haroutyunhaltunyan93:TOxbTgT3kG8fXtnS@loginproject3.puzfb.mongodb.net/?retryWrites=true&w=majority&appName=loginproject3"
+const MONGODB = "mongodb+srv://haroutyunhaltunyan93:TOxbTgT3kG8fXtnS@loginproject3.puzfb.mongodb.net/?retryWrites=true&w=majority&appName=loginproject3";
+
+// Port configuration
+const PORT = process.env.PORT || 4001;
 
 // Create a new ApolloServer instance
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({ req }), // Pass the request to the context if needed
 });
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(MONGODB, {useNewUrlParser: true})
+mongoose
+  .connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("MongoDB Connected");
+    console.log('MongoDB Connected');
     // Start Apollo Server after MongoDB connection is successful
-    return server.listen({ port: 3024 });
+    return server.listen({ port: PORT });
   })
   .then((res) => {
-    console.log(`Server running at ${res.url}`)
+    console.log(`Server running at ${res.url}`);
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err.message);
   });
-  // .catch((err) => {
-  //   console.error("Error connecting to MongoDB:", err);
-  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+
+
+
+
+// const { ApolloServer } = require('apollo-server');
+// const mongoose = require('mongoose');
+
+// const typeDefs = require('./graphql/typeDefs');
+// const resolvers = require('./graphql/resolvers');
+
+// // MongoDB connection string
+// const MONGODB = "mongodb+srv://haroutyunhaltunyan93:TOxbTgT3kG8fXtnS@loginproject3.puzfb.mongodb.net/?retryWrites=true&w=majority&appName=loginproject3"
+
+// // Create a new ApolloServer instance
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+// });
+
+// // Connect to MongoDB using Mongoose
+// mongoose.connect(MONGODB, {useNewUrlParser: true})
+//   .then(() => {
+//     console.log("MongoDB Connected");
+//     // Start Apollo Server after MongoDB connection is successful
+//     return server.listen({ port: 3024 });
+//   })
+//   .then((res) => {
+//     console.log(`Server running at ${res.url}`)
+//   });
+//   // .catch((err) => {
+//   //   console.error("Error connecting to MongoDB:", err);
+//   // });
 
 
 

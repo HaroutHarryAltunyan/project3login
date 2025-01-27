@@ -1,4 +1,3 @@
-// const Message = require('../models/Message');
 const Message = require('../../models/Message');
 
 module.exports = {
@@ -17,9 +16,25 @@ module.exports = {
                 id: res.id,
                 ...res._doc 
             };
-        }
+        },
     },
     Query: {
-        message: (_, {ID}) => Message.findById(ID)
-    }
-}
+        async message(_, { ID }) {
+            const message = await Message.findById(ID);
+            if (!message) {
+                throw new Error('Message not found');
+            }
+            return message;
+        },
+    },
+};
+
+
+
+//             };
+//         }
+//     },
+//     Query: {
+//         message: (_, {ID}) => Message.findById(ID)
+//     }
+// }
