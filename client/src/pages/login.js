@@ -8,8 +8,12 @@ import { gql } from "graphql-tag";
 import { useNavigate } from "react-router-dom";
 
 const LOGIN_USER = gql`
-    mutation login($loginInput: LoginInput) {
-        loginUser(loginInput: $loginInput) {
+    mutation login(
+        $loginInput: LoginInput
+        ) {
+        loginUser(
+            loginInput: $loginInput
+            ){
             email
             username
             token
@@ -20,7 +24,7 @@ const LOGIN_USER = gql`
 function Login(props) {
     let navigate = useNavigate();
     const context = useContext(AuthContext);
-    const [errors, setErrors] = useState([]); // Fixed typo: "erros" -> "errors"
+    const [errors, setErrors] = useState([]); 
 
     function loginUserCallback() {
         loginUser();
