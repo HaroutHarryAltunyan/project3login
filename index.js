@@ -5,8 +5,7 @@ const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 
 // MongoDB connection string
-const MONGODB = 
-"mongodb+srv://haroutyunhaltunyan93:RMEizsGcjSnfT7VF@cluster1.cw144.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+const MONGODB = "mongodb+srv://haroutyunhaltunyan93:TOxbTgT3kG8fXtnS@loginproject3.puzfb.mongodb.net/?retryWrites=true&w=majority&appName=loginproject3"
 
 // Create a new ApolloServer instance
 const server = new ApolloServer({
@@ -19,14 +18,190 @@ mongoose.connect(MONGODB, {useNewUrlParser: true})
   .then(() => {
     console.log("MongoDB Connected");
     // Start Apollo Server after MongoDB connection is successful
-    return server.listen({ port: 3001 });
+    return server.listen({ port: 3024 });
   })
   .then((res) => {
-    console.log(`Server running at ${res.url}`);
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
+    console.log(`Server running at ${res.url}`)
   });
+  // .catch((err) => {
+  //   console.error("Error connecting to MongoDB:", err);
+  // });
+
+
+
+
+
+// // //////////////////////////////////////////////////////////////////              ////////////////  this is new with security updates ///////////////////// //
+
+
+//   require('dotenv').config(); // Load environment variables
+//   const { ApolloServer } = require('apollo-server');
+//   const mongoose = require('mongoose');
+  
+//   const typeDefs = require('./graphql/typeDefs');
+//   const resolvers = require('./graphql/resolvers');
+  
+//   // Environment Variables
+//   const MONGODB = process.env.MONGODB || "your-default-connection-string";     // ////////////////// Gets the MongoDB connection string //////////////////// //
+//   const PORT = process.env.PORT || 3001;                                       // //////////////////        Gets the server port        //////////////////// //
+  
+//   // Create a new ApolloServer instance
+//   const server = new ApolloServer({
+//     typeDefs,
+//     resolvers,
+//     context: ({ req }) => {
+//       // Add context logic here if needed (e.g., extracting auth headers)
+//       return { req };
+//     },
+//   });
+  
+//   // Connect to MongoDB using Mongoose
+//   mongoose
+//     .connect(MONGODB, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true, // Recommended for modern MongoDB drivers
+//     })
+//     .then(() => {
+//       console.log("MongoDB Connected");
+//       // Start Apollo Server after MongoDB connection is successful
+//       return server.listen({ port: PORT });
+//     })
+//     .then((res) => {
+//       console.log(`🚀 Server running at ${res.url}`);
+//     })
+//     .catch((err) => {
+//       console.error("Error connecting to MongoDB:", err);
+//     });
+  
+//   // Graceful Shutdown
+//   process.on("SIGINT", async () => {
+//     console.log("Shutting down...");
+//     await mongoose.connection.close();
+//     console.log("MongoDB connection closed.");
+//     process.exit(0);
+//   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   // // step 1 npm init --yes 

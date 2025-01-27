@@ -1,4 +1,5 @@
-const User = require('../../models/Message');
+// const User = require('../../models/User');
+const User = require('../../models/User'); // Adjust if necessary
 const { ApolloError } = require('apollo-server-errors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -7,7 +8,7 @@ module.exports = {
     Mutation: {
         async registerUser(_, { registerInput: { username, email, password } }) { 
             // See if an OLD USER EXISTS WITH EMAIL ATTEMPTING TO REGISTER
-            const oldUser = await User.findOne({ email }); // Fixed `findone` to `findOne`
+            const oldUser = await User.findOne({ email }); 
 
             // Throw error if that user exists
             if (oldUser) {
@@ -35,7 +36,7 @@ module.exports = {
 
             newUser.token = token;
 
-            // Save our user in Mongoose
+            // Save our user in MongoDB
             const res = await newUser.save();
 
             return {
@@ -45,26 +46,25 @@ module.exports = {
         },
         async loginUser(_, { loginInput: { email, password } }) { 
             // See if a user exists with the email
-            const user = await User.findOne({ email }); // Fixed `findone` to `findOne`
-
+            const user = await User.findOne({ email }); 
             // Check if the entered password equals the encrypted password
-            if (user && (await bcrypt.compare(password, user.password))) {
+            if (user && (await bcrypt.compare(password, user.password))) { 
+
                 // Create a NEW token 
                 const token = jwt.sign(
-                    { user_id: user._id, email }, // Fixed `newUser._id` to `user._id`
+                    { user_id: newUser._id, email }, 
                     "UNSAFE_STRING",
                     {
                         expiresIn: "2h"
                     }
                 );
-
                 // Attach token to user model that we found above 
                 user.token = token;
 
                 return {
                     id: user.id,
                     ...user._doc
-                };
+                }
             } else {
                 // If user doesn't exist or password is incorrect, return error
                 throw new ApolloError('Incorrect password', "INCORRECT_PASSWORD");
@@ -75,6 +75,87 @@ module.exports = {
         user: (_, { ID }) => User.findById(ID), 
     },
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

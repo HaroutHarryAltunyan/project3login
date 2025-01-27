@@ -1,4 +1,5 @@
-const Message = require('../../models/Message');
+// const Message = require('../../models/Message');
+const Message = require('./models/Message');
 
 module.exports = {
     Mutation: {
@@ -6,7 +7,7 @@ module.exports = {
             const newMessage = new Message({
                 text: text,
                 createdBy: username,
-                createdAt: new Date().toISOString(),
+                createdAt: new Date().toISOString()
             });
 
             const res = await newMessage.save();
@@ -14,11 +15,11 @@ module.exports = {
 
             return {
                 id: res.id,
-                ...res._doc, 
+                ...res._doc 
             };
         }
     },
     Query: {
-        message: (_, { ID }) => Message.findById(ID), 
-    },
-};
+        message: (_, {ID}) => Message.findById(ID)
+    }
+}

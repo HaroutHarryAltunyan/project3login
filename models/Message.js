@@ -7,3 +7,6 @@ const messageSchema = new Schema ({
 });
 
 module.exports = model('Message', messageSchema);
+
+
+// this pulls from typedefs line 5-9         15-16         19-20
