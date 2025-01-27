@@ -1,5 +1,5 @@
-// const Message = require('../../models/Message');
-const Message = require('./models/Message');
+// const Message = require('../models/Message');
+const Message = require('../../models/Message');
 
 module.exports = {
     Mutation: {

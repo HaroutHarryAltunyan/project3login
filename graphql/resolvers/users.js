@@ -1,5 +1,4 @@
-// const User = require('../../models/User');
-const User = require('../../models/User'); // Adjust if necessary
+const User = require('../../models/User'); 
 const { ApolloError } = require('apollo-server-errors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
