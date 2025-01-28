@@ -30,7 +30,7 @@ SO THAT I can achieve my goals effortlessly.
 ## Technologies Used
 - **Frontend:**
   - React
-  - CSS-in-JS or Styled Components (or a library like Chakra UI or Ant Design)
+  - CSS-in-JS or Styled Components , Material UI
 
 - **Backend:**
   - Node.js
