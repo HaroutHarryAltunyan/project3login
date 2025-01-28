@@ -1,14 +1,15 @@
 const { gql } = require('apollo-server');
 
 module.exports = gql`
- type User {
+  # User Type Definition
+  type User {
     id: ID!
     username: String!
     email: String!
-    password: String!
     token: String!
   }
 
+  # Message Type Definition
   type Message {
     id: ID!
     text: String!
@@ -16,6 +17,7 @@ module.exports = gql`
     createdAt: String!
   }
 
+  # Input Types for User Registration and Login
   input RegisterInput {
     username: String!
     email: String!
@@ -28,16 +30,19 @@ module.exports = gql`
     password: String!
   }
 
+  # Input Type for Creating Messages
   input MessageInput {
     text: String!
-    username: String!
+    createdBy: String!
   }
 
+  # Query Type Definitions
   type Query {
     message(id: ID!): Message
     user(id: ID!): User
   }
 
+  # Mutation Type Definitions
   type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
@@ -60,90 +65,3 @@ module.exports = gql`
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const { gql } = require('apollo-server');
-
-// module.exports = gql`
-//   type User {
-//     username: String,
-//     email: String,
-//     password: String,
-//     token: String
-//   }
-
-//   input RegisterInput {
-//     username: String
-//     email: String
-//     password: String
-//     confirmPassword: String
-//   }
-
-//   input LoginInput {
-//     email: String
-//     password: String
-//   }
-
-//   # type Message {     
-//   #   text: String!  
-//   #   createdAt: String
-//   #   createdBy: String
-//   # }
-
-//   type User {
-//     username: String
-//     email: String
-//     password: String
-//     token: String
-//   }
-
-//   input MessageInput {
-//     text: String
-//     username: String
-//   }
-
-//   # input RegisterInput {
-//   #   username: String
-//   #   email: String
-//   #   password: String
-//   # }
-
-//   # input LoginInput {
-//   #   email: String
-//   #   password: String
-//   # }
-
-//   type Query {
-//     message(id: ID!): Message
-//     user(id: ID!): User
-//   }
-
-//   type Mutation {
-//     createMessage(messageInput: MessageInput): Message!
-//     registerUser(registerInput: RegisterInput): User
-//     loginUser(loginInput: LoginInput): User
-//   }
-// `;

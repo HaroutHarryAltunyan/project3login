@@ -1,11 +1,32 @@
-const{ model, Schema } = require('mongoose');
+const { model, Schema } = require('mongoose');
 
-const userSchema = new Schema ({
-   username: { type: String, default: null },
-   email: { type: String, unique: true },
-   password: { type: String },
-   token: { type: String }
+// Define the User schema
+const userSchema = new Schema(
+    {
+        username: {
+            type: String,
+            default: null,
+            trim: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
+        token: {
+            type: String,
+        },
+    },
+    {
+        timestamps: true, // Automatically adds createdAt and updatedAt fields
+    }
+);
 
-});
-
+// Export the User model
 module.exports = model('User', userSchema);

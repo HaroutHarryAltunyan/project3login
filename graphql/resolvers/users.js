@@ -1,76 +1,100 @@
-const User = require('../../models/User'); 
+const User = require('../../models/User');
 const { ApolloError } = require('apollo-server-errors');
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+// Load environment variables
+const JWT_SECRET = process.env.JWT_SECRET || 'UNSAFE_STRING'; // Use environment variables for secrets
+const TOKEN_EXPIRATION = '2h'; // Token expiration time
 
 module.exports = {
     Mutation: {
-        async registerUser(_, { registerInput: { username, email, password } }) { 
-            // See if an OLD USER EXISTS WITH EMAIL ATTEMPTING TO REGISTER
-            const oldUser = await User.findOne({ email }); 
-
-            // Throw error if that user exists
-            if (oldUser) {
-                throw new ApolloError('A user is already registered with the email ' + email, 'USER_ALREADY_EXIST');
-            }
-
-            // Encrypt password
-            var encryptedPassword = await bcrypt.hash(password, 10);
-
-            // Build out mongoose model (User)
-            const newUser = new User({
-                username: username,
-                email: email.toLowerCase(),
-                password: encryptedPassword
-            });
-
-            // Create JWT (attach to user model)
-            const token = jwt.sign(
-                { user_id: newUser._id, email },
-                "UNSAFE_STRING",
-                {
-                    expiresIn: "2h"
+        async registerUser(_, { registerInput: { username, email, password } }) {
+            try {
+                // Check if the email is already in use
+                const existingUser = await User.findOne({ email });
+                if (existingUser) {
+                    throw new ApolloError(
+                        `A user is already registered with the email: ${email}`,
+                        'USER_ALREADY_EXISTS'
+                    );
                 }
-            );
 
-            newUser.token = token;
+                // Hash the password
+                const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Save our user in MongoDB
-            const res = await newUser.save();
+                // Create a new user instance
+                const newUser = new User({
+                    username,
+                    email: email.toLowerCase(),
+                    password: hashedPassword,
+                });
 
-            return {
-                id: res.id,
-                ...res._doc
-            };
-        },
-        async loginUser(_, { loginInput: { email, password } }) { 
-            // See if a user exists with the email
-            const user = await User.findOne({ email }); 
-            // Check if the entered password equals the encrypted password
-            if (user && (await bcrypt.compare(password, user.password))) { 
-
-                // Create a NEW token 
+                // Generate a JWT
                 const token = jwt.sign(
-                    { user_id: user._id, email }, 
-                    "UNSAFE_STRING",
-                    {
-                        expiresIn: "2h"
-                    }
+                    { userId: newUser._id, email },
+                    JWT_SECRET,
+                    { expiresIn: TOKEN_EXPIRATION }
                 );
-                // Attach token to user model that we found above 
+                newUser.token = token;
+
+                // Save the user to the database
+                const savedUser = await newUser.save();
+
+                // Return the saved user
+                return {
+                    id: savedUser.id,
+                    ...savedUser._doc,
+                };
+            } catch (error) {
+                throw new ApolloError(`Registration failed: ${error.message}`, 'REGISTRATION_ERROR');
+            }
+        },
+
+        async loginUser(_, { loginInput: { email, password } }) {
+            try {
+                // Find the user by email
+                const user = await User.findOne({ email });
+                if (!user) {
+                    throw new ApolloError('User not found', 'USER_NOT_FOUND');
+                }
+
+                // Validate the password
+                const isPasswordValid = await bcrypt.compare(password, user.password);
+                if (!isPasswordValid) {
+                    throw new ApolloError('Incorrect password', 'INCORRECT_PASSWORD');
+                }
+
+                // Generate a new token
+                const token = jwt.sign(
+                    { userId: user._id, email },
+                    JWT_SECRET,
+                    { expiresIn: TOKEN_EXPIRATION }
+                );
                 user.token = token;
 
+                // Return the user with the new token
                 return {
                     id: user.id,
-                    ...user._doc
-                }
-            } else {
-                // If user doesn't exist or password is incorrect, return error
-                throw new ApolloError('Incorrect password', "INCORRECT_PASSWORD");
+                    ...user._doc,
+                };
+            } catch (error) {
+                throw new ApolloError(`Login failed: ${error.message}`, 'LOGIN_ERROR');
             }
-        }
+        },
     },
+
     Query: {
-        user: (_, { ID }) => User.findById(ID), 
+        async user(_, { ID }) {
+            try {
+                const user = await User.findById(ID);
+                if (!user) {
+                    throw new ApolloError('User not found', 'USER_NOT_FOUND');
+                }
+                return user;
+            } catch (error) {
+                throw new ApolloError(`Failed to fetch user: ${error.message}`, 'FETCH_USER_ERROR');
+            }
+        },
     },
 };

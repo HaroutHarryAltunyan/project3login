@@ -1,24 +1,77 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+
+// export const useForm = (callback, initialState = {}) => {
+//     const [values, setValues] = useState(initialState);
+
+//     const onChange = (event) => {
+//         setValues({ ...values, [event.target.name]: event.target.value });
+//         console.log(values);
+//     };
+
+//     const onSubmit = (event) => {
+//         event.preventDefault();
+//         callback(); // Executes the callback function passed to the hook
+//     }
+
+//     return {
+//         onChange,
+//         onSubmit,
+//         values,
+//     }
+// }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+import { useState } from "react";
 
 export const useForm = (callback, initialState = {}) => {
     const [values, setValues] = useState(initialState);
 
+    // Handle form input changes
     const onChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-        console.log(values);
+        const { name, value } = event.target;
+        setValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
 
+    // Handle form submission
     const onSubmit = (event) => {
         event.preventDefault();
-        callback(); // Executes the callback function passed to the hook
-    }
+        if (callback && typeof callback === "function") {
+            callback(); // Execute the provided callback function
+        }
+    };
 
     return {
+        values,
         onChange,
         onSubmit,
-        values,
-    }
-}
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
