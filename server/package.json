@@ -1,20 +1,21 @@
 {
   "name": "project3login",
   "version": "1.0.0",
-  "description": "this is the readme for hte mongo db graphql server",
-  "main": "index.js",
+  "description": "this is the readme for the MongoDB GraphQL server",
+  "main": "server.js",
+  "type": "module", 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/server": "^4.11.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.1",
-    "apollo-server": "^3.13.0",
     "apollo-server-errors": "^3.3.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
