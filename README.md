@@ -80,7 +80,7 @@ SO THAT I can achieve my goals effortlessly.
 3. Interact with the user interface for CRUD operations.
 
 ## Screenshots
-- [./i]
+- 
 
 ![main login page ](./assets/images/loginpage%20.png)
 
