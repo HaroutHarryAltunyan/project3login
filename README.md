@@ -2,7 +2,7 @@
 
 # MERN Stack Single-Page Application
 
-# Thoughts for Loggers
+## Thoughts for Loggerss
 
 ## Project Description
 This application is a full-stack MERN (MongoDB, Express.js, React, Node.js) single-page application designed to demonstrate collaborative development skills, problem-solving, and technical expertise. The project addresses a real-world challenge, offering a polished, responsive, and interactive user experience.
