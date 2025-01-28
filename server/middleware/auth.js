@@ -1,10 +1,10 @@
-const { AuthenticationError } = require('apollo-server');
-const jwt = require('jsonwebtoken');
+import { AuthenticationError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
 
 // Use environment variable for JWT secret
 const JWT_SECRET = process.env.JWT_SECRET || 'UNSAFE_STRING';
 
-module.exports = (context) => {
+export default (context) => {
     // Extract the authorization header from the request
     const authHeader = context.req.headers.authorization;
 

@@ -1,6 +1,6 @@
-const Message = require('../../models/Message');
+import Message from '../../models/Message.js';
 
-module.exports = {
+export default {
     Mutation: {
         async createMessage(_, { messageInput: { text, username } }) { 
             const newMessage = new Message({
@@ -28,3 +28,5 @@ module.exports = {
         },
     },
 };
+
+

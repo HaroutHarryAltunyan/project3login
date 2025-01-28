@@ -1,13 +1,12 @@
-const User = require('../../models/User');
-const { ApolloError } = require('apollo-server-errors');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+import User from '../../models/User.js';
+import { ApolloError } from 'apollo-server-errors';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 // Load environment variables
 const JWT_SECRET = process.env.JWT_SECRET || 'UNSAFE_STRING'; // Use environment variables for secrets
 const TOKEN_EXPIRATION = '2h'; // Token expiration time
-
-module.exports = {
+export default {
     Mutation: {
         async registerUser(_, { registerInput: { username, email, password } }) {
             try {
