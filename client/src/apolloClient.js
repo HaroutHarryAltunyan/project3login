@@ -3,7 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 
 // Define the server URI
 const httpLink = createHttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_URI || "http://localhost:4005", // Use environment variable for flexibility
+    uri: process.env.REACT_APP_GRAPHQL_URI || "http://localhost:3001", // Use environment variable for flexibility
 });
 
 // Add authentication token to headers
