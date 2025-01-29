@@ -12,8 +12,8 @@ const resolvers = require('./graphql/resolvers');
 const MONGODB = "mongodb+srv://haroutyunhaltunyan93:TOxbTgT3kG8fXtnS@loginproject3.puzfb.mongodb.net/?retryWrites=true&w=majority&appName=loginproject3";
 
 // Port configuration
-//const PORT = process.env.PORT || 4005;
-const port = process.env.PORT || 3001
+// const PORT = process.env.PORT || 4005;
+const PORT = process.env.PORT || 3001;
 
 // Create a new ApolloServer instance
 const server = new ApolloServer({
